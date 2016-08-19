@@ -17,6 +17,8 @@ import com.jpardogo.android.listbuddies.Utils.SharePreferences;
 import com.jpardogo.android.listbuddies.provider.FragmentTags;
 import com.jpardogo.android.listbuddies.ui.fragments.CustomizeFragment;
 import com.jpardogo.android.listbuddies.ui.fragments.ListBuddiesFragment;
+import com.pgyersdk.crash.PgyCrashManager;
+import com.pgyersdk.update.PgyUpdateManager;
 import com.umeng.analytics.MobclickAgent;
 
 
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements CustomizeFragment
         if (savedInstanceState == null) {
             manageFragment(ListBuddiesFragment.newInstance(isOpenActivitiesActivated), FragmentTags.LIST_BUDDIES, false);
         }
+        PgyCrashManager.register(this);
+        PgyUpdateManager.register(this);
     }
 
     //友盟统计
@@ -45,6 +49,13 @@ public class MainActivity extends AppCompatActivity implements CustomizeFragment
         super.onPause();
         overridePendingTransition(0, 0);
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        PgyCrashManager.unregister();
+        PgyUpdateManager.unregister();
     }
 
     /**

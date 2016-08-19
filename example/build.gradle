@@ -60,6 +60,9 @@ dependencies {
     //umeng
     compile 'com.umeng.analytics:analytics:latest.integration'
 
+    //pugongying
+    compile 'com.pgyersdk:sdk:2.4.0'
+
 }
 
 File propFile = file('signing.properties');

@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.jpardogo.android.listbuddies.Utils.Utils;
+import com.pgyersdk.crash.PgyCrashManager;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -35,6 +36,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         overridePendingTransition(0, 0);
         super.onCreate(savedInstanceState);
+        PgyCrashManager.register(this);
     }
 
     @Override
@@ -47,6 +49,11 @@ public class BaseActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        PgyCrashManager.unregister();
     }
 
     protected void moveBackground() {
