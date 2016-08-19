@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,7 +19,7 @@ import com.jpardogo.android.listbuddies.ui.fragments.CustomizeFragment;
 import com.jpardogo.android.listbuddies.ui.fragments.ListBuddiesFragment;
 
 
-public class MainActivity extends ActionBarActivity implements CustomizeFragment.OnCustomizeListener {
+public class MainActivity extends AppCompatActivity implements CustomizeFragment.OnCustomizeListener {
 
     private boolean isOpenActivitiesActivated = true;
 
@@ -31,14 +32,20 @@ public class MainActivity extends ActionBarActivity implements CustomizeFragment
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = new MenuInflater(this);
-        menuInflater.inflate(R.menu.main, menu);
-        MenuItem openActivities = menu.findItem(R.id.action_open_activities);
-        openActivities.setChecked(isOpenActivitiesActivated);
-        return super.onCreateOptionsMenu(menu);
-    }
+    /**
+     * 右上角 action bar
+     * @param item
+     * @return
+     */
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater menuInflater = new MenuInflater(this);
+//        menuInflater.inflate(R.menu.main, menu);
+//        MenuItem openActivities = menu.findItem(R.id.action_open_activities);
+//        openActivities.setChecked(isOpenActivitiesActivated);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

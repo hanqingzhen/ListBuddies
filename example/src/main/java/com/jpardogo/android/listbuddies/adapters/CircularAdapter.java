@@ -1,13 +1,17 @@
 package com.jpardogo.android.listbuddies.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jpardogo.android.listbuddies.R;
 import com.jpardogo.android.listbuddies.Utils.ScaleToFitWidhtHeigthTransform;
+import com.jpardogo.android.listbuddies.models.ImageBean;
 import com.jpardogo.listbuddies.lib.adapters.CircularLoopAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -17,18 +21,25 @@ import java.util.List;
 public class CircularAdapter extends CircularLoopAdapter {
     private static final String TAG = CircularAdapter.class.getSimpleName();
 
-    private List<String> mItems = new ArrayList<String>();
+    //private List<String> mItems = new ArrayList<String>();
+    private List<ImageBean> mItems = new ArrayList<ImageBean>();
     private Context mContext;
     private int mRowHeight;
 
-    public CircularAdapter(Context context, int rowHeight, List<String> imagesUrl) {
+//    public CircularAdapter(Context context, int rowHeight, List<String> imagesUrl) {
+//        mContext = context;
+//        mRowHeight = rowHeight;
+//        mItems = imagesUrl;
+//    }
+
+    public CircularAdapter(Context context, int rowHeight, List<ImageBean> imagesUrl) {
         mContext = context;
         mRowHeight = rowHeight;
         mItems = imagesUrl;
     }
 
     @Override
-    public String getItem(int position) {
+    public ImageBean getItem(int position) {
         return mItems.get(getCircularPosition(position));
     }
 
@@ -51,16 +62,23 @@ public class CircularAdapter extends CircularLoopAdapter {
         }
         holder.image.setMinimumHeight(mRowHeight);
 
-        Picasso.with(mContext).load(getItem(position)).transform(new ScaleToFitWidhtHeigthTransform(mRowHeight, true)).skipMemoryCache().into(holder.image);
-
+        Picasso.with(mContext)
+                .load(getItem(position).getUrl())
+                .transform(new ScaleToFitWidhtHeigthTransform(mRowHeight, true))
+                .config(Bitmap.Config.RGB_565)
+                .into(holder.image);
+        Log.e("adapter","url:"+getItem(position));
+        holder.tvComment.setText(getItem(position).getComment());
         return convertView;
     }
 
     static class ViewHolder {
         ImageView image;
+        TextView tvComment;
 
         public ViewHolder(View convertView) {
             image = (ImageView) convertView.findViewById(R.id.image);
+            tvComment = (TextView)convertView.findViewById(R.id.tv_comment);
         }
     }
 }

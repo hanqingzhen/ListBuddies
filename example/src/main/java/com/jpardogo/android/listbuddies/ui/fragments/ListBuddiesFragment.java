@@ -12,10 +12,13 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.jpardogo.android.listbuddies.R;
+import com.jpardogo.android.listbuddies.Utils.sharepreference.MySharePreference;
 import com.jpardogo.android.listbuddies.adapters.CircularAdapter;
+import com.jpardogo.android.listbuddies.models.ImageBean;
 import com.jpardogo.android.listbuddies.provider.ExtraArgumentKeys;
 import com.jpardogo.android.listbuddies.provider.ImagesUrls;
 import com.jpardogo.android.listbuddies.ui.DetailActivity;
+import com.jpardogo.android.listbuddies.ui.SplashActivity;
 import com.jpardogo.listbuddies.lib.provider.ScrollConfigOptions;
 import com.jpardogo.listbuddies.lib.views.ListBuddiesLayout;
 
@@ -36,8 +39,11 @@ public class ListBuddiesFragment extends Fragment implements ListBuddiesLayout.O
     private CircularAdapter mAdapterRight;
     @InjectView(R.id.listbuddies)
     ListBuddiesLayout mListBuddies;
-    private List<String> mImagesLeft = new ArrayList<String>();
-    private List<String> mImagesRight = new ArrayList<String>();
+//    private List<String> mImagesLeft = new ArrayList<String>();
+//    private List<String> mImagesRight = new ArrayList<String>();
+
+    private List<ImageBean> mImagesLeft = new ArrayList<ImageBean>();
+    private List<ImageBean> mImagesRight = new ArrayList<ImageBean>();
 
     public static ListBuddiesFragment newInstance(boolean isOpenActivitiesActivated) {
         ListBuddiesFragment fragment = new ListBuddiesFragment();
@@ -52,7 +58,7 @@ public class ListBuddiesFragment extends Fragment implements ListBuddiesLayout.O
         super.onCreate(savedInstanceState);
         isOpenActivities = getArguments().getBoolean(ExtraArgumentKeys.OPEN_ACTIVITES.toString(), false);
         mMarginDefault = getResources().getDimensionPixelSize(com.jpardogo.listbuddies.lib.R.dimen.default_margin_between_lists);
-        mScrollConfig = getResources().getIntArray(R.attr.scrollFaster);
+        mScrollConfig = getResources().getIntArray(R.array.numbs);//getResources().getIntArray(R.attr.scrollFaster);
     }
 
     @Override
@@ -63,8 +69,10 @@ public class ListBuddiesFragment extends Fragment implements ListBuddiesLayout.O
 
         //If we do this we need to uncomment the container on the xml layout
         //createListBuddiesLayoutDinamically(rootView);
-        mImagesLeft.addAll(Arrays.asList(ImagesUrls.imageUrls_left));
-        mImagesRight.addAll(Arrays.asList(ImagesUrls.imageUrls_right));
+//        mImagesLeft.addAll(Arrays.asList(ImagesUrls.imageUrls_left));
+//        mImagesRight.addAll(Arrays.asList(ImagesUrls.imageUrls_right));
+        mImagesLeft = MySharePreference.newInstance(getActivity()).getImages(SplashActivity.LEFT_IMAGES);
+        mImagesRight= MySharePreference.newInstance(getActivity()).getImages(SplashActivity.RIGHT_IMAGES);
         mAdapterLeft = new CircularAdapter(getActivity(), getResources().getDimensionPixelSize(R.dimen.item_height_small), mImagesLeft);
         mAdapterRight = new CircularAdapter(getActivity(), getResources().getDimensionPixelSize(R.dimen.item_height_tall), mImagesRight);
         mListBuddies.setAdapters(mAdapterLeft, mAdapterRight);
