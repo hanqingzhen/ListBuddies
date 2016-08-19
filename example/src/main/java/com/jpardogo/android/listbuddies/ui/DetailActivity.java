@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 //import com.bumptech.glide.Glide;
 import com.jpardogo.android.listbuddies.R;
@@ -16,8 +17,12 @@ import butterknife.InjectView;
 public class DetailActivity extends BaseActivity {
 
     public static final String EXTRA_URL = "url";
+    public static final String EXTRA_COMMENT = "comment";
     @InjectView(R.id.image)
     ImageView mImageView;
+
+    @InjectView(R.id.tv_comment)
+    TextView mTvComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,7 @@ public class DetailActivity extends BaseActivity {
         ButterKnife.inject(this);
         mBackground = mImageView;
         final String imageUrl = getIntent().getExtras().getString(EXTRA_URL);
+        mTvComment.setText(getIntent().getExtras().getString(EXTRA_COMMENT));
         Picasso.with(this)
                 .load(imageUrl)
                 .config(Bitmap.Config.RGB_565)

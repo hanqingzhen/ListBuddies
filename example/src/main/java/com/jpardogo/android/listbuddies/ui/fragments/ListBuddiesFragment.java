@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 
-public class ListBuddiesFragment extends Fragment implements ListBuddiesLayout.OnBuddyItemClickListener {
+public class ListBuddiesFragment extends BaseFragment implements ListBuddiesLayout.OnBuddyItemClickListener {
     private static final String TAG = ListBuddiesFragment.class.getSimpleName();
     int mMarginDefault;
     int[] mScrollConfig;
@@ -92,6 +92,7 @@ public class ListBuddiesFragment extends Fragment implements ListBuddiesLayout.O
         if (isOpenActivities) {
             Intent intent = new Intent(getActivity(), DetailActivity.class);
             intent.putExtra(DetailActivity.EXTRA_URL, getImage(buddy, position));
+            intent.putExtra(DetailActivity.EXTRA_COMMENT, getComment(buddy, position));
             startActivity(intent);
         } else {
             Resources resources = getResources();
@@ -99,8 +100,15 @@ public class ListBuddiesFragment extends Fragment implements ListBuddiesLayout.O
         }
     }
 
+//    private String getImage(int buddy, int position) {
+//        return buddy == 0 ? ImagesUrls.imageUrls_left[position] : ImagesUrls.imageUrls_right[position];
+//    }
     private String getImage(int buddy, int position) {
-        return buddy == 0 ? ImagesUrls.imageUrls_left[position] : ImagesUrls.imageUrls_right[position];
+        return buddy == 0 ? mImagesLeft.get(position).getUrl() : mImagesRight.get(position).getUrl();
+    }
+
+    private String getComment(int buddy, int position) {
+        return buddy == 0 ? mImagesLeft.get(position).getComment() : mImagesRight.get(position).getComment();
     }
 
     public void setGap(int value) {

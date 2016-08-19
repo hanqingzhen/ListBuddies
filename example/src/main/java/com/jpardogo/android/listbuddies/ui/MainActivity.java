@@ -17,6 +17,7 @@ import com.jpardogo.android.listbuddies.Utils.SharePreferences;
 import com.jpardogo.android.listbuddies.provider.FragmentTags;
 import com.jpardogo.android.listbuddies.ui.fragments.CustomizeFragment;
 import com.jpardogo.android.listbuddies.ui.fragments.ListBuddiesFragment;
+import com.umeng.analytics.MobclickAgent;
 
 
 public class MainActivity extends AppCompatActivity implements CustomizeFragment.OnCustomizeListener {
@@ -30,6 +31,20 @@ public class MainActivity extends AppCompatActivity implements CustomizeFragment
         if (savedInstanceState == null) {
             manageFragment(ListBuddiesFragment.newInstance(isOpenActivitiesActivated), FragmentTags.LIST_BUDDIES, false);
         }
+    }
+
+    //友盟统计
+    @Override
+    protected void onResume(){
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+        MobclickAgent.onPause(this);
     }
 
     /**
@@ -189,9 +204,5 @@ public class MainActivity extends AppCompatActivity implements CustomizeFragment
         return (ListBuddiesFragment) findFragmentByTag(FragmentTags.LIST_BUDDIES);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        overridePendingTransition(0, 0);
-    }
+
 }

@@ -12,6 +12,7 @@ import com.jpardogo.android.listbuddies.Utils.sharepreference.MySharePreference;
 import com.jpardogo.android.listbuddies.models.ImageBean;
 import com.jpardogo.android.listbuddies.models.ImagesResponse;
 import com.jpardogo.android.listbuddies.models.RetrofitAPI;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +37,16 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        //上传日志开启加密
+        //AnalyticsConfig.enableEncrypt(true);
+        //不使用自动Activity设置
+        MobclickAgent.openActivityDurationTrack(false);
+        //集成测试
+        MobclickAgent.setDebugMode(true);
+        //在线参数
+        //MobclickAgent.updateOnlineConfig(this);
+
         getImages();
         waitTime();
     }

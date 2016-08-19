@@ -54,6 +54,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jpardogo.android.listbuddies.ui.MainActivity" />
         </activity>
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57b6b8b1e0f55acbcd003041" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" />
     </application>
 
 </manifest>

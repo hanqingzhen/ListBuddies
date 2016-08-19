@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.jpardogo.android.listbuddies.Utils.Utils;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by jpardogo on 25/02/2014.
@@ -34,6 +35,18 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         overridePendingTransition(0, 0);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     protected void moveBackground() {

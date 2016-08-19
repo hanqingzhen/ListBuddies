@@ -1,5 +1,6 @@
 package com.jpardogo.android.listbuddies.provider;
-
+//该类不再使用,url来自七牛的配置文件images.json
+@Deprecated
 public class ImagesUrls {
 
     public final static String[] imageUrls_left = new String[]{
